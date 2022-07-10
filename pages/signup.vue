@@ -13,6 +13,7 @@
             outlined
             dense
             :rules="nameRules"
+            v-model="username"
           ></v-text-field>
           <v-text-field
             label="メールアドレス"
@@ -20,6 +21,7 @@
             outlined
             dense
             :rules="mailRules"
+            v-model="email"
           ></v-text-field>
           <v-text-field
             label="パスワード"
@@ -27,19 +29,53 @@
             outlined
             dense
             :rules="pwRules"
+            v-model="password"
           ></v-text-field>
         </div>
         <div class="text-center">
-          <v-btn class="primary" :disabled="!valid">登録</v-btn>
+          <v-btn class="primary" :disabled="!valid" @click="signup">登録</v-btn>
         </div>
 
       </v-card-text>
     </v-form>
   </v-card>
+
+  <div class="text-center">
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          登録完了!
+        </v-card-title>
+
+        <v-card-text class="mt-5">
+          温泉マニアの世界へようこそ!
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="gotoMain"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
+</div>
 </template>
 
 <script>
+import {axiosInstance as Api} from '~/myModules/api'
+import $cookies from "cookie-universal-nuxt";
+
 export default {
   data() {
     return {
@@ -47,6 +83,7 @@ export default {
       email: '',
       password: '',
       valid: false,
+      dialog: false,
       nameRules: [
         (v) => !!v || "user name is required",
         (v) => (v && v.length <= 15) || "最大15文字です。",
@@ -61,12 +98,40 @@ export default {
     validate() {
       this.$refs.form.validate();
     },
-    signup() {
+    async signup() {
       const postObj = {
         username: this.username,
         email: this.email,
         password: this.password
       }
+
+      const res = await Api.post('/users/register', postObj)
+      console.log(res)
+
+      if(res['data']['status'] == 0) {
+        this.dialog = true
+      } else if(res['data']['status'] == 1) {
+        alert("メールアドレスが正しくなさそうだよ")
+      } else if(res['data']['status'] == 2) {
+        alert("すでに登録されてるユーザ名だよ")
+      }
+    },
+    async gotoMain() {
+      this.dialog = false
+
+      let formData = new FormData()
+      formData.append("username", this.username)
+      formData.append("password", this.password)
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        }
+      };
+      const res = await Api.post("/users/login", formData, config)
+      console.log(res)
+
+      this.$cookies.set("jwt-token", res['data']['access_token'])
+      this.$router.push('/')
     }
   },
 };

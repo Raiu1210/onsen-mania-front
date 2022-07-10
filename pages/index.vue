@@ -22,8 +22,6 @@ export default {
     VuetifyLogo
   },
   created() {
-    console.log(this.$cookies.get("test"))
-
     console.log(this.$cookies.get("jwt-token"))
     if(typeof this.$cookies.get("jwt-token") === "undefined") {
       console.log("cookie is empty. go to login")
