@@ -7,7 +7,7 @@
       <v-form>
         <v-text-field
           prepend-icon="mdi-account-circle"
-          v-model="name"
+          v-model="username"
           label="ユーザ名"
         />
 
@@ -41,19 +41,30 @@
 
 
 <script>
+import {axiosInstance as Api} from '~/myModules/api'
+import $cookies from "cookie-universal-nuxt";
 
 export default {
   data() {
     return {
-      name:'',
+      username:'',
       password: '',
       showPassword : false
     }
   },
   methods: {
-    login() {
-      console.log(this.name)
-      console.log(this.password)
+    async login() {
+      let formData = new FormData()
+      formData.append("username", this.username)
+      formData.append("password", this.password)
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        }
+      };
+      const res = await Api.post("/users/login", formData, config)
+      this.$cookies.set("jwt-token", res['data']['access_token'])
+      this.$router.push('/')
     },
     gotoSignUp() {
       this.$router.push('/signup')

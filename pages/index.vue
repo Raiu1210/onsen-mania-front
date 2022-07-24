@@ -1,43 +1,43 @@
 <template>
   <v-container fluid>
     <v-row dense justify="center">
-      <v-col cols="8">
-        <v-card>
+      <v-col cols="12">
+        <v-card @click="$router.push('/checkin')">
           <v-img
-            src="https://gahag.net/img/201604/04s/gahag-0072592460-1.jpg"
+            src="https://monaledge.com:8443/articleImages/1657950122775gahag-0072592460-1.jpg"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             height="200px"
           >
-            <v-card-title>温泉にチェックイン</v-card-title>
+            <v-card-title>チェックイン</v-card-title>
           </v-img>
         </v-card>
       </v-col>
     </v-row>
 
     <v-row dense justify="center">
-      <v-col cols="4">
-        <v-card>
+      <v-col cols="6">
+        <v-card @click="$router.push('/search')">
           <v-img
-            src="https://alsheraz.com/wp-content/uploads/2021/01/google-maps-new-interface1.jpg"
+            src="https://monaledge.com:8443/articleImages/1657950122784google-maps-new-interface1.jpg"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             height="200px"
           >
-            <v-card-title>温泉を探す</v-card-title>
+            <v-card-title>探す</v-card-title>
           </v-img>
         </v-card>
       </v-col>
 
-      <v-col cols="4">
-        <v-card>
+      <v-col cols="6">
+        <v-card @click="$router.push('/stats')">
           <v-img
-            src="https://www.tac-school.co.jp/file/tac/tacnewsweb/images/feature/2020/feat202005_1_large.jpg"
+            src="https://monaledge.com:8443/articleImages/1657950122797feat202005_1_large.jpg"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
             height="200px"
           >
-            <v-card-title>温泉巡りの記録</v-card-title>
+            <v-card-title>記録</v-card-title>
           </v-img>
         </v-card>
       </v-col>
