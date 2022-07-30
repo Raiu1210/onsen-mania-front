@@ -9,7 +9,7 @@
     >
       <v-img
         height="250"
-        :src="'http://localhost:8000/thumbnails/' + onsen['image_path']"
+        :src="`${baseURL}/thumbnails/` + onsen['image_path']"
       ></v-img>
 
       <v-card-title>{{onsen['name']}}</v-card-title>
@@ -65,12 +65,13 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </div>
 </template>
 
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
-import {createInstanceWithJWT} from '~/myModules/api'
+import {createInstanceWithJWT, baseURL} from '~/myModules/api'
 import $cookies from "cookie-universal-nuxt";
 
 export default {
@@ -82,7 +83,8 @@ export default {
       nearOnsenList: [],
       dialog: false,
       dialog2: false,
-      selectedOnsen: {}
+      selectedOnsen: {},
+      baseURL: baseURL
     }
   },
   async created() {

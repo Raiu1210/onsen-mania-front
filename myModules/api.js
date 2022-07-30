@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // dev
-let baseURL = 'http://localhost:8000'
+export let baseURL = 'http://localhost:8000'
 
 // prod
 // let baseURL = 'http://localhost:8000'

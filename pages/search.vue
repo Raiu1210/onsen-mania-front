@@ -31,23 +31,32 @@
       </GmapMap>
     </v-card>
 
-    <v-card class="mx-auto my-4">
+    <v-card class="mx-auto my-4" v-if="infoWinOpen">
       <v-img
         height="150"
-        :src="'http://localhost:8000/thumbnails/' + marker['image_path']"
+        :src="`${baseURL}/thumbnails/` + marker['image_path']"
       ></v-img>
-
       <v-card-title>{{marker['name']}}</v-card-title>
       <v-card-text class="text--primary">
-        {{marker['address']}} <br />
+        <b>住所 :</b> {{onsenDetail['address']}}<br />
+        <b>定休日 :</b> {{onsenDetail['off_day']}}<br />
+        <b>営業時間 :</b> {{onsenDetail['open_time']}}<br />
+        <b>駐車場 :</b> {{onsenDetail['parking']}}<br />
+        <b>サウナ :</b> {{onsenDetail['sauna']}}<br />
       </v-card-text>
+
+      <a class="tel-btn" :href="`tel:${onsenDetail['tel']}`">
+        <v-btn color="success mb-3 ml-3" fab>
+          <v-icon>mdi-phone-in-talk</v-icon>
+        </v-btn>
+      </a>
     </v-card>
   </div>
 </template>
 
 <script>
 import {axiosInstance as Api} from '~/myModules/api'
-import {createInstanceWithJWT} from '~/myModules/api'
+import {createInstanceWithJWT, baseURL} from '~/myModules/api'
 import $cookies from "cookie-universal-nuxt";
 
 
@@ -55,6 +64,7 @@ export default {
   data() {
     return {
       onsenList: [],
+      onsenDetail: {},
       maplocation: { lat: 0, lng: 0 },
       zoom: 12,
       styleMap: {
@@ -74,7 +84,8 @@ export default {
       },
       infoWindowPos: null,
       infoWinOpen: false,
-      marker: {}
+      marker: {},
+      baseURL: baseURL
     }
   },
   async created() {
@@ -100,11 +111,18 @@ export default {
         navigator.geolocation.getCurrentPosition(resolve, reject)
       })
     },
-    onClickMarker(index, marker) {
+    async onClickMarker(index, marker) {
       this.$refs.gmp.panTo({lat: marker.lat, lng: marker.lon})
       this.infoWindowPos = {lat: marker.lat, lng: marker.lon}
       this.marker = marker
       this.infoWinOpen = true
+
+      const res = await Api.get('/onsen/onsen_detail', {
+        params: {
+          onsen_id: marker.id,
+        }
+      })
+      this.onsenDetail = res['data']
     },
   },
   created() {
@@ -116,3 +134,10 @@ export default {
   }
 }
 </script>
+
+
+<style scoped>
+.tel-btn {
+  text-decoration: none;
+}
+</style>
