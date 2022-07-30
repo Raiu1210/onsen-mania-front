@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- {{nearOnsenList.slice(0, 20)}} -->
+    <h2>現在地付近の温泉</h2>
     <v-card
       class="mx-auto my-12"
       v-for="onsen in nearOnsenList.slice(0, 20)"
@@ -107,12 +107,7 @@ export default {
           // エラー処理を書く
         }
       )
-
-      console.log(this.lat, this.lon)
-
       for(let i = 0; i<this.onsenList.length; i++) {
-        // const x2 = Math.pow(this.onsenList[i]['lat']-this.lat, 2)
-        // const y2 = Math.pow(this.onsenList[i]['lon']-this.lon, 2)
         this.onsenList[i]['distance'] = this.calcDistance(this.onsenList[i]['lat'], this.onsenList[i]['lon'], this.lat, this.lon)
       }
 
