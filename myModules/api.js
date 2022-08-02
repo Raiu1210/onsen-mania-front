@@ -4,7 +4,7 @@ import axios from 'axios'
 export let baseURL = 'http://localhost:8000'
 
 // prod
-// let baseURL = 'http://localhost:8000'
+// export let baseURL = 'https://monaledge.com:8888'
 
 export const axiosInstance = axios.create({
   baseURL: baseURL
