@@ -31,7 +31,7 @@
         <v-card class="my-2" >
           <v-toolbar class="white--text" color="purple darken-1" flat>コンプ率</v-toolbar>
 
-          <DoughnutGraph class="mt-3" :dataLength="onsenList.length" :numVisited="visited.length" />
+          <DoughnutGraph class="mt-3" :dataLength="onsenList.length" :numVisited="countUniqueVisit(visited)" />
           <center>
             <v-col cols=8>
               <v-select
@@ -86,7 +86,6 @@ export default {
     }
   },
   async created() {
-    console.log(this.$cookies.get("jwt-token"))
     if(typeof this.$cookies.get("jwt-token") === "undefined") {
       this.$router.push('/login')
     }
@@ -95,7 +94,6 @@ export default {
 
     const apiInstance = createInstanceWithJWT(this.$cookies.get("jwt-token"))
     const res2 = await apiInstance.get('users/my_visit')
-    console.log(res2['data'])
     this.visited = res2['data']
 
     // get this year
@@ -138,6 +136,16 @@ export default {
         years.push(Number(dateInfo[0])+'年')
       })
       this.visitedYears = years
+    },
+    countUniqueVisit(visits) {
+      console.log(visits)
+      let visitedIds = []
+      visits.forEach(function(visit) {
+        if(!visitedIds.includes(visit['onsen_id'])) {
+          visitedIds.push(visit['onsen_id'])
+        }
+      })
+      return visitedIds.length
     }
   },
   components: {

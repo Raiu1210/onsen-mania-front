@@ -49,7 +49,7 @@ export default {
     return {
       username:'',
       password: '',
-      showPassword : false
+      showPassword : false,
     }
   },
   methods: {
