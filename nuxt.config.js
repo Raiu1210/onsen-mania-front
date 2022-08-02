@@ -35,6 +35,13 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    [
+      '@nuxtjs/google-gtag',
+      {
+        id: 'G-EVMP9SYRWE',
+        debug: true
+      }
+    ],
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
