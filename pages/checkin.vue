@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>現在地付近の温泉</h2>
+    <p>{{lat}}, {{lon}}</p>
     <v-card
       class="mx-auto my-12"
       v-for="onsen in nearOnsenList.slice(0, 20)"
@@ -51,7 +52,7 @@
     >
       <v-card>
         <v-card-title class="text-h6">
-          「{{selectedOnsen.name}}」にチェックインしました！
+          「{{selectedOnsen.name}}」にチェックインしました!
         </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -77,8 +78,8 @@ import $cookies from "cookie-universal-nuxt";
 export default {
   data() {
     return {
-      lat: 33.568858,
-      lon: 130.3996778,
+      lat: 35.6762,
+      lon: 139.6503,
       onsenList: [],
       nearOnsenList: [],
       dialog: false,
@@ -98,24 +99,20 @@ export default {
     this.onsenList = res['data']
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
+      await navigator.geolocation.getCurrentPosition(
         function(position){
           let coords = position.coords;
-          // 緯度経度だけ取得
           this.lat = coords.latitude;
           this.lon = coords.longitude;
-        }.bind(this),
-        function(error) {
-          // エラー処理を書く
-        }
-      )
-      for(let i = 0; i<this.onsenList.length; i++) {
-        this.onsenList[i]['distance'] = this.calcDistance(this.onsenList[i]['lat'], this.onsenList[i]['lon'], this.lat, this.lon)
-      }
 
-      this.nearOnsenList = this.onsenList.sort(function(a, b) {
-        return (a.distance< b.distance) ? -1 : 1;
-      })
+          for(let i = 0; i<this.onsenList.length; i++) {
+            this.onsenList[i]['distance'] = this.calcDistance(this.onsenList[i]['lat'], this.onsenList[i]['lon'], this.lat, this.lon)
+          }
+          this.nearOnsenList = this.onsenList.sort(function(a, b) {
+            return (a.distance< b.distance) ? -1 : 1;
+          })
+        }.bind(this),
+      )
     } else {
       console.log("can't get location")
     }

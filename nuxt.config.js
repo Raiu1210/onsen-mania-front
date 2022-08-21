@@ -25,7 +25,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    { src: '~/plugins/vue2-google-maps.js' }
+    {src: '~/plugins/vue2-leaflet-markercluster.js', mode:'client'},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -49,6 +49,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
+    ['nuxt-leaflet', { /* module options */ }],
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -77,7 +78,5 @@ export default {
   build: {
     analyze: true,
     extend(config, ctx) {},
-    vendor: ['vue2-google-maps'],
-    transpile: [/^vue2-google-maps($|\/)/]
   }
 }

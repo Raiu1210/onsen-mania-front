@@ -47,10 +47,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.dataLength)
-    console.log(this.numVisited)
     const data = [this.numVisited, this.dataLength]
-    console.log(data)
     this.data.datasets.data = data
   },
   methods: {
