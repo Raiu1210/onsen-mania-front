@@ -7,12 +7,12 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s - onsen-mania-front',
-    title: 'onsen-mania-front',
+    titleTemplate: '%s - 温泉マニア',
+    title: '温泉マニア',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: '温泉を探したり、訪れた温泉を記録したり、振り返ったりできるアプリ' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
