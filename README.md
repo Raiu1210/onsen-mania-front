@@ -18,3 +18,13 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+
+firebaseへのデプロイ
+
+myModule/api.jsのbaseURLを本番サーバに向ける
+
+```bash
+yarn generate
+firebase deploy
+```
