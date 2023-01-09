@@ -110,7 +110,7 @@ export default {
       this.$router.push('/login')
     }
   },
-  async mounted() {
+  async created() {
     this.loading = true
     const res = await Api.get('onsen/onsen_list')
     this.onsenList = res['data']
