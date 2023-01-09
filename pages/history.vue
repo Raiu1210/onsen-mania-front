@@ -33,7 +33,6 @@ export default {
     }
   },
   async created() {
-    console.log(this.$cookies.get("jwt-token"))
     if(typeof this.$cookies.get("jwt-token") === "undefined") {
       this.$router.push('/login')
     }
@@ -44,7 +43,6 @@ export default {
     const res2 = await apiInstance.get('users/my_visit')
     console.log(res2['data'])
     this.visited = res2['data']
-    // users/my_visit
   },
   methods: {
     getTimeInfo(timeStr) {

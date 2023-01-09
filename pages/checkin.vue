@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2>現在地付近の温泉</h2>
-    <p>{{lat}}, {{lon}}</p>
     <v-card
       class="mx-auto my-12"
       v-for="onsen in nearOnsenList.slice(0, 20)"
@@ -63,6 +62,17 @@
           >
             OK
           </v-btn>
+          <v-btn
+              class="ma-2"
+              fab
+              dark
+              color="blue"
+              @click="share('twitter')"
+            >
+              <v-icon dark>
+                mdi-twitter
+              </v-icon>
+            </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -148,7 +158,25 @@ export default {
     gotoMain() {
       this.dialog2 = false
       this.$router.push('/')
-    }
+    },
+    share(sns) {
+      const shareUrl = `https://onsen-mania.com/`
+      const text = `%E3%80%90${this.selectedOnsen.name}%E3%80%91に来たよ！ %0a%0a%20%23温泉マニア %20%23温泉 %20%23${this.selectedOnsen.name} %0a%0a`
+      let href = ""
+      switch( sns ) {
+        case 'twitter':
+            href = `https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}`
+            break
+        // case 'facebook':
+        //     href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+        //     break
+        // case 'line':
+        //     href = `https://social-plugins.line.me/lineit/share?url=${shareUrl}`
+        //     break
+      }
+      window.open(href, '_blank') // 新規タブでSNSのシェアページを開く
+      this.gotoMain()
+    },
   }
 }
 </script>
