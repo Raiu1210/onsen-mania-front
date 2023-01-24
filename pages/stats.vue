@@ -15,6 +15,7 @@
                 class="mt-3"
                 :items="visitedYears"
                 v-model="selectedYear"
+                @change="fetchYear"
                 :label="selectedYear + '年'"
                 solo
               ></v-select>
@@ -28,12 +29,12 @@
       justify="center" align-content="center"
     >
       <v-col cols=12>
-        <v-card class="my-2" >
+        <v-card class="my-2 py-2" >
           <v-toolbar class="white--text" color="purple darken-1" flat>コンプ率</v-toolbar>
 
           <DoughnutGraph class="mt-3" :dataLength="onsenList.length" :numVisited="countUniqueVisit(visited)" />
           <center>
-            <v-col cols=8>
+            <!-- <v-col cols=8>
               <v-select
                 class="mt-3"
                 :items="visitedYears"
@@ -41,7 +42,7 @@
                 label="全国"
                 solo
               ></v-select>
-            </v-col>
+            </v-col> -->
           </center>
         </v-card>
       </v-col>
@@ -96,6 +97,8 @@ export default {
     const res2 = await apiInstance.get('users/my_visit')
     this.visited = res2['data']
 
+    console.log(this.visited)
+
     // get this year
     const timeObj = new Date()
     this.selectedYear = timeObj.getFullYear()
@@ -146,6 +149,9 @@ export default {
         }
       })
       return visitedIds.length
+    },
+    fetchYear(year) {
+      this.calcMonthlyCount(year.substring(0, 4))
     }
   },
   components: {
