@@ -109,28 +109,27 @@ export default {
       console.log("cookie is empty. go to login")
       this.$router.push('/login')
     }
-  },
-  async created() {
     this.loading = true
     const res = await Api.get('onsen/onsen_list')
     this.onsenList = res['data']
 
+    const self = this
     if (navigator.geolocation) {
-      await navigator.geolocation.getCurrentPosition(
+      navigator.geolocation.getCurrentPosition(
         function(position){
           let coords = position.coords;
           const currentPos = {
             lat: coords.latitude,
             lng: coords.longitude,
           }
-          this.center = currentPos
+          self.center = currentPos
 
           res['data'].forEach(onsen => {
-            if(this.calcDistance(currentPos.lat, currentPos.lng, onsen.lat, onsen.lon) < 50) {
-              this.displayOnsen.push(onsen)
+            if(self.calcDistance(currentPos.lat, currentPos.lng, onsen.lat, onsen.lon) < 50) {
+              self.displayOnsen.push(onsen)
             }
           })
-        }.bind(this),
+        }
       )
     } else {
       console.log("can't get location")
