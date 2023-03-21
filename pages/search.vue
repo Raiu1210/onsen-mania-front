@@ -115,7 +115,7 @@ export default {
 
     const self = this
     if (navigator.geolocation) {
-      await navigator.geolocation.getCurrentPosition(
+      navigator.geolocation.getCurrentPosition(
         function(position){
           let coords = position.coords;
           const currentPos = {
