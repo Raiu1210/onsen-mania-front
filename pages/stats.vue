@@ -32,17 +32,18 @@
         <v-card class="my-2 py-2" >
           <v-toolbar class="white--text" color="purple darken-1" flat>コンプ率</v-toolbar>
 
-          <DoughnutGraph class="mt-3" :dataLength="onsenList.length" :numVisited="countUniqueVisit(visited)" />
+          <DoughnutGraph class="mt-3" :dataLength="targetDataLength" :numVisited="targetNumVisited" />
           <center>
-            <!-- <v-col cols=8>
+            <v-col cols=8>
               <v-select
                 class="mt-3"
-                :items="visitedYears"
+                :items="area"
                 v-model="selectedYear"
+                @change="fetchArea"
                 label="全国"
                 solo
               ></v-select>
-            </v-col> -->
+            </v-col>
           </center>
         </v-card>
       </v-col>
@@ -77,27 +78,33 @@ export default {
       visited: [],
       visitedYears: [],
       selectedYear: 0,
+      targetDataLength: 1,
+      targetNumVisited: 0,
 
       // stats area
       area: ['全国'],
+      selectedArea: '',
 
       // input for monthly bar graph
       chartData: {}
-
     }
   },
   async created() {
     if(typeof this.$cookies.get("jwt-token") === "undefined") {
       this.$router.push('/login')
     }
+    // get init data
     const res = await Api.get('onsen/onsen_list')
     this.onsenList = res['data']
 
     const apiInstance = createInstanceWithJWT(this.$cookies.get("jwt-token"))
     const res2 = await apiInstance.get('users/my_visit')
     this.visited = res2['data']
+    this.createPrefList()
 
-    console.log(this.visited)
+    // calc init data
+    this.targetDataLength = this.onsenList.length
+    this.targetNumVisited = this.countUniqueVisit(this.visited)
 
     // get this year
     const timeObj = new Date()
@@ -141,7 +148,6 @@ export default {
       this.visitedYears = years
     },
     countUniqueVisit(visits) {
-      console.log(visits)
       let visitedIds = []
       visits.forEach(function(visit) {
         if(!visitedIds.includes(visit['onsen_id'])) {
@@ -152,6 +158,36 @@ export default {
     },
     fetchYear(year) {
       this.calcMonthlyCount(year.substring(0, 4))
+    },
+    fetchArea(area) {
+      if(area == '全国') {
+        this.targetDataLength = this.onsenList.length
+        this.targetNumVisited = this.countUniqueVisit(this.visited)
+      } else {
+        let targetPrefOnsenList = []
+        let targetPrefVisitList = []
+        this.onsenList.forEach(function(onsen) {
+          if(onsen['pref'] == area) {
+            targetPrefOnsenList.push(onsen)
+          }
+        })
+        // filter pref and count
+        this.visited.forEach(function(visit) {
+          if(visit['pref'] == area) {
+            targetPrefVisitList.push(visit)
+          }
+        })
+        this.targetDataLength = targetPrefOnsenList.length
+        this.targetNumVisited = this.countUniqueVisit(targetPrefVisitList)
+      }
+    },
+    createPrefList() {
+      const self = this
+      this.visited.forEach(visit => {
+        if(!self.area.includes(visit.pref)) {
+          self.area.push(visit.pref)
+        }
+      })
     }
   },
   components: {
