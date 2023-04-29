@@ -38,7 +38,6 @@
               <v-select
                 class="mt-3"
                 :items="area"
-                v-model="selectedYear"
                 @change="fetchArea"
                 label="全国"
                 solo
