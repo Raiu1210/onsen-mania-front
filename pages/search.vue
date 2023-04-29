@@ -77,11 +77,11 @@ export default {
       onsenList: [],
       displayOnsen: [],
       onsenDetail: {},
-      center: [35.6762, 139.6503],
+      center: [33.50200845565052, 130.5192510502089],
       mapCenter: [],
       maplocation: { lat: 0, lng: 0 },
       url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
-      zoom: 10,
+      zoom: 9,
       styleMap: {
         width: '100%',
         height: '400px',
@@ -113,36 +113,18 @@ export default {
     const res = await Api.get('onsen/onsen_list')
     this.onsenList = res['data']
 
+    this.loading = true
+    this.displayOnsen = []
     const self = this
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function(position){
-          let coords = position.coords;
-          const currentPos = {
-            lat: coords.latitude,
-            lng: coords.longitude,
-          }
-          self.center = currentPos
-
-          res['data'].forEach(onsen => {
-            if(self.calcDistance(currentPos.lat, currentPos.lng, onsen.lat, onsen.lon) < 50) {
-              self.displayOnsen.push(onsen)
-            }
-          })
-        }
-      )
-    } else {
-      console.log("can't get location")
-    }
-
+    this.onsenList.forEach(onsen => {
+      if(self.calcDistance(33.50200845565052, 130.5192510502089, onsen.lat, onsen.lon) < 50) {
+        self.displayOnsen.push(onsen)
+      }
+    })
+    this.loading = false
     this.loading = false
   },
   methods: {
-    getCurrentPosition() {
-      return new Promise(function (resolve, reject) {
-        navigator.geolocation.getCurrentPosition(resolve, reject)
-      })
-    },
     async onClickMarker(index, marker) {
       this.infoWindowPos = {lat: marker.lat, lng: marker.lon}
       this.marker = marker

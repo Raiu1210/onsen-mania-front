@@ -50,13 +50,13 @@ export default {
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
     ['nuxt-leaflet', { /* module options */ }],
-    ['@nuxtjs/google-adsense']
+    // ['@nuxtjs/google-adsense']
   ],
 
-  'google-adsense': {
-    id: "ca-pub-9410270200655875",
-    pageLevelAds: true
-  },
+  // 'google-adsense': {
+  //   id: "ca-pub-9410270200655875",
+  //   pageLevelAds: true
+  // },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
