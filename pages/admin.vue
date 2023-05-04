@@ -26,6 +26,7 @@
 
       <v-tabs-items v-model="itemId">
         <v-tab-item><RegisterOnsen /></v-tab-item>
+        <v-tab-item><EditOnsen /></v-tab-item>
       </v-tabs-items>
     </v-card>
   </div>
@@ -33,6 +34,7 @@
 
 <script>
 import RegisterOnsen from '~/components/RegisterOnsen'
+import EditOnsen from '~/components/EditOnsen'
 
 export default {
   data () {
@@ -47,6 +49,7 @@ export default {
   },
   components: {
     RegisterOnsen,
+    EditOnsen
   }
 }
 </script>
