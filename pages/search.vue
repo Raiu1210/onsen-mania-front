@@ -59,6 +59,11 @@
           <v-icon>mdi-phone-in-talk</v-icon>
         </v-btn>
       </a>
+      <a v-if="onsenDetail['url']" class="tel-btn" target="_blank" :href="`${onsenDetail['url']}`">
+        <v-btn color="success mb-3 ml-3" fab>
+          <v-icon>mdi-web</v-icon>
+        </v-btn>
+      </a>
     </v-card>
 
 
