@@ -7,7 +7,7 @@
       <v-form>
         <v-text-field
           prepend-icon="mdi-account-circle"
-          v-model="username"
+          v-model="email"
           label="ユーザ名"
         />
 
@@ -47,22 +47,18 @@ import $cookies from "cookie-universal-nuxt";
 export default {
   data() {
     return {
-      username:'',
+      email:'',
       password: '',
       showPassword : false,
     }
   },
   methods: {
     async login() {
-      let formData = new FormData()
-      formData.append("username", this.username)
-      formData.append("password", this.password)
-      const config = {
-        headers: {
-          "content-type": "multipart/form-data",
-        }
-      };
-      const res = await Api.post("/users/login", formData, config)
+      const postObj = {
+        "email": this.email,
+        "password": this.password
+      }
+      const res = await Api.post("/users/login", postObj)
       this.$cookies.set("jwt-token", res['data']['access_token'])
       this.$router.push('/')
     },
