@@ -1,13 +1,21 @@
 <template>
-    <!-- ヒーローセクション -->
-    <v-container>
-    <v-card>
-      <v-img :src="`${baseURL}/thumbnails/${onsen.image_path}`" class="white--text" height="200px">
-        <v-card-title>{{ onsen.name }}</v-card-title>
-      </v-img>
+  <v-container>
+    <v-row>
+      <v-col>
+        <h1 class="modern-title">{{ onsen.name }}</h1>
+      </v-col>
+    </v-row>
 
+    <v-card>
+      <v-img :src="`${baseURL}/thumbnails/${onsen.image_path}`" class="white--text" height="200px"></v-img>
       <v-card-text>
         <div><strong>住所:</strong> {{ onsen.address }}</div>
+        <div>
+          <v-btn :href="`https://www.google.com/maps/?q=${onsen.lat},${onsen.lon}`" target="_blank" color="primary" text>
+            <v-icon left>mdi-map-marker</v-icon>
+            Google Mapsで位置を表示
+          </v-btn>
+        </div>
         <div><strong>電話番号:</strong> {{ onsen.tel }}</div>
         <div><strong>営業時間:</strong> {{ onsen.open_time }}</div>
         <div><strong>休業日:</strong> {{ onsen.off_day }}</div>
@@ -23,8 +31,6 @@
       記載されている情報は調査時のもので、現在は変更されている可能性があります。情報の修正依頼はアプリから行えます
     </v-alert>
   </v-container>
-
-  <!-- </v-app> -->
 </template>
 
 <script>
@@ -65,5 +71,15 @@ export default {
 <style>
 .toolbar-link {
   cursor: pointer;
+}
+
+.modern-title {
+  font-size: 41px;
+  font-weight: 800;
+  padding: 5px 0 0;
+  font-weight: 100;
+  display: inline;
+  margin: 0 10px 0 0;
+  font-weight: 800;
 }
 </style>
