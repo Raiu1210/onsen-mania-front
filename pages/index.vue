@@ -1,17 +1,5 @@
 <template>
-  <v-app>
-    <!-- ナビゲーションバー -->
-    <v-app-bar app color="brown" dark>
-      <v-spacer />
-        <v-toolbar-title>温泉マニア</v-toolbar-title>
-      <v-spacer />
-      <!-- <v-btn text>Home</v-btn>
-      <v-btn text>About</v-btn>
-      <v-btn text>Features</v-btn>
-      <v-btn text>Contact</v-btn> -->
-    </v-app-bar>
-
-    <!-- ヒーローセクション -->
+  <div>
     <v-container fluid>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="6">
@@ -69,16 +57,7 @@
         </v-col>
       </v-row>
     </v-container>
-
-    <!-- フッター -->
-    <v-footer app color="brown" dark>
-      <v-container>
-        <v-row>
-          <v-col class="text-center">©2023 温泉マニア</v-col>
-        </v-row>
-      </v-container>
-    </v-footer>
-  </v-app>
+  </div>
 </template>
 
 <script>

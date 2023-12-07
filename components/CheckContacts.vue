@@ -22,6 +22,14 @@
         >
           {{ item.checked ? 'Checked' : 'Check' }}
         </v-btn>
+
+        <v-btn
+          v-if="showChecked"
+          color="red"
+          @click="deleteContact(item.id)"
+        >
+          削除
+        </v-btn>
       </template>
     </v-data-table>
   </v-container>
@@ -80,6 +88,18 @@ export default {
     formatDate(dateString) {
       const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false };
       return new Intl.DateTimeFormat('ja-JP', options).format(new Date(dateString));
+    },
+    async deleteContact(contactId) {
+      if (confirm('この問い合わせを削除してもよろしいですか？')) {
+        try {
+          const apiInstance = createInstanceWithJWT(this.$cookies.get("jwt-token"));
+          await apiInstance.post('/contacts/delete_contact', { contact_id: contactId });
+          this.contacts = this.contacts.filter(contact => contact.id !== contactId);
+        } catch (error) {
+          console.error('Error deleting contact:', error);
+          // エラーハンドリング
+        }
+      }
     },
   },
 };
