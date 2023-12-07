@@ -8,7 +8,7 @@
         <v-text-field
           prepend-icon="mdi-account-circle"
           v-model="email"
-          label="ユーザ名"
+          label="メールアドレス"
         />
 
         <v-text-field

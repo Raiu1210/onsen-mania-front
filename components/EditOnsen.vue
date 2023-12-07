@@ -75,6 +75,7 @@
 
         <v-card-actions>
           <v-btn color="primary" @click="saveSelectedData">Save</v-btn>
+          <v-btn color="error" @click="deleteOnsen">Delete</v-btn>
           <v-btn color="primary" text @click="popupVisible = false">Close</v-btn>
         </v-card-actions>
       </v-card>
@@ -196,13 +197,29 @@ export default {
         "disabled": this.selectedData.disabled
       }
 
-      console.log(postObj)
       const res2 = await apiInstance.post('/onsen/update_onsen', postObj)
 
       // update view
       const res = await Api.get('onsen/onsen_list')
       this.onsenList = res['data']
       this.onsenImg = null
+      this.popupVisible = false
+    },
+    async deleteOnsen() {
+      if (confirm("この温泉を削除しますか？") == false) {
+        return ;
+      }
+
+      const postObj = {
+        "id": this.selectedData.id
+      }
+
+      const apiInstance = createInstanceWithJWT(this.$cookies.get("jwt-token"))
+      await apiInstance.post('/onsen/delete_onsen', postObj)
+
+      // update view
+      const res = await Api.get('onsen/onsen_list')
+      this.onsenList = res['data']
       this.popupVisible = false
     }
   },
