@@ -60,7 +60,7 @@ export default {
       }
       const res = await Api.post("/users/login", postObj)
       this.$cookies.set("jwt-token", res['data']['access_token'])
-      this.$router.push('/')
+      this.$router.push('/home')
     },
     gotoSignUp() {
       this.$router.push('/signup')

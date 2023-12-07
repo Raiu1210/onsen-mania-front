@@ -131,7 +131,7 @@ export default {
       console.log(res)
 
       this.$cookies.set("jwt-token", res['data']['access_token'])
-      this.$router.push('/')
+      this.$router.push('/home')
     }
   },
 };

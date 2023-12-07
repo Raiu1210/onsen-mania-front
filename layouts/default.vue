@@ -4,6 +4,8 @@
       :clipped-left="clipped"
       fixed
       app
+      color="brown"
+      dark
     >
       <v-spacer />
       <v-toolbar-title v-text="title" />
@@ -17,6 +19,8 @@
     <v-footer
       :absolute="!fixed"
       app
+      color="brown"
+      dark
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
