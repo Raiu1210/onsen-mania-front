@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
+import axios from 'axios'
 
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
@@ -84,5 +85,16 @@ export default {
   build: {
     analyze: true,
     extend(config, ctx) {},
+  },
+
+  generate: {
+    interval: 100,
+    routes: function () {
+      return axios.get('https://monaledge.com:8888/onsen/onsen_list').then((res) => {
+        return res.data.map((onsen) => {
+          return '/onsen/' + onsen.id;
+        });
+      });
+    }
   }
 }
