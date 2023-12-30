@@ -14,7 +14,7 @@
             </a>
 
             <!-- Google Playのダウンロードボタン -->
-            <a href="https://apps.apple.com/jp/app/%E6%B8%A9%E6%B3%89%E3%83%9E%E3%83%8B%E3%82%A2/id6449859396" target="_blank" class="ma-2">
+            <a href="https://play.google.com/store/apps/details?id=com.raiu.onsenmania" target="_blank" class="ma-2">
               <img src="https://lh3.googleusercontent.com/q1k2l5CwMV31JdDXcpN4Ey7O43PxnjAuZBTmcHEwQxVuv_2wCE2gAAQMWxwNUC2FYEOnYgFPOpw6kmHJWuEGeIBLTj9CuxcOEeU8UXyzWJq4NJM3lg=s0" alt="Download on the App Store" class="store-badge">
             </a>
           </v-row>
