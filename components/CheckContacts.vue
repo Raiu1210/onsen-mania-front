@@ -47,6 +47,7 @@ export default {
         { text: 'ID', value: 'id' },
         { text: 'User ID', value: 'user_id' },
         { text: 'User Name', value: 'user_name' },
+        { text: 'Email', value: 'user_email' },
         { text: 'Created At', value: 'created_at' },
         { text: 'Content', value: 'content' },
         { text: 'Checked', value: 'checked' },
